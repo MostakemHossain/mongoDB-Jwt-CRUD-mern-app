@@ -1,17 +1,10 @@
 const express = require("express");
 const router= express.Router();
-const User= require("../api/models/User");
-router.get('/', async(req,res)=>{
-    try{
-        const users= await User.find({});
-        res.status(200).send(users);
-
-    }catch(err){
-        res.status(500).json({
-            message:"Error "+ err.message,
-        })
-    }
-
-})
+const userController= require('../controllers/userController')
+router.get('/',userController.getAllUsers);
+router.post('/',userController.createUser);
+router.delete('/:id',userController.deleteUser);
+router.put('/:id',userController.UpdateUser);
+    
 
 module.exports=router;
